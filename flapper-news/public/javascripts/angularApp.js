@@ -5,7 +5,7 @@ app.config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateUrl: 'login.html',
+                templateUrl: '/login.html',
                 controller: 'AuthCtrl',
                 onEnter: ['$state', 'auth', function($state, auth){
                     if(auth.isLoggedIn()){
@@ -132,7 +132,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 
     auth.register = function(user){
         return $http.post('/register', user).success(function(data){
-            auth.saveToken(data.token);
+        auth.saveToken(data.token);
         });
     };
 
@@ -150,7 +150,7 @@ app.factory('auth', ['$http', '$window', function($http, $window){
 }]);
 
 app.controller('MainCtrl', ['$scope', 'posts', 'auth',
-    function($scope, posts, post, auth){
+    function($scope, posts, auth, post){
         $scope.posts = posts.posts;
         $scope.isLoggedIn = auth.isLoggedIn;
 
@@ -177,6 +177,7 @@ app.controller('MainCtrl', ['$scope', 'posts', 'auth',
 app.controller('PostsCtrl', ['$scope', 'posts', 'post', 'auth',
     function($scope, posts, post, auth){
         $scope.post = post;
+        $scope.isLoggedIn = auth.isLoggedIn;
 
         $scope.addComment = function(){
             if($scope.body === '') { return; }

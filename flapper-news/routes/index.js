@@ -115,7 +115,7 @@ router.post('/register', function(req, res, next){
 
     return res.json({token: user.generateJWT()});
   });
-});
+}); 
 
 router.post('/login', function(req, res, next){
   if(!req.body.username || !req.body.password){
