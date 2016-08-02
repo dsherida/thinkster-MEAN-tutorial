@@ -149,11 +149,10 @@ app.factory('auth', ['$http', '$window', function($http, $window){
     return auth;
 }]);
 
-app.controller('MainCtrl', ['$scope', 'posts', 'auth', function($scope, posts, post, auth){
+app.controller('MainCtrl', ['$scope', 'posts', 'auth',
+    function($scope, posts, post, auth){
         $scope.posts = posts.posts;
-        $scope.isLoggedIn = function(){
-            return auth.isLoggedIn();
-        };
+        $scope.isLoggedIn = auth.isLoggedIn;
 
         $scope.addPost = function(){
             if(!$scope.title || $scope.title === '') {
@@ -178,7 +177,6 @@ app.controller('MainCtrl', ['$scope', 'posts', 'auth', function($scope, posts, p
 app.controller('PostsCtrl', ['$scope', 'posts', 'post', 'auth',
     function($scope, posts, post, auth){
         $scope.post = post;
-        $scope.isLoggedIn = auth.isLoggedIn;
 
         $scope.addComment = function(){
             if($scope.body === '') { return; }
